@@ -65,6 +65,8 @@ contract Token is ERC20 {
 }
 ```
 
+**_mint_**: permet la génération de token.
+
 Ensuite, nous devons paramétré remix :
 
 ![[Pasted image 20230502154934.png]]
@@ -73,3 +75,18 @@ Ensuite, nous devons paramétré remix :
 Enfin, nous devons associé le contrat à notre wallet en important notre adresse du contrat.
 ![[Pasted image 20230502155513.png]]
 
+## ERC20
+ERC20 est une norme technique pour les jetons (ou "tokens") émis sur la blockchain Ethereum. "ERC" signifie "Ethereum Request for Comments" et "20" est le numéro attribué à cette norme.
+
+La norme ERC20 établit un ensemble de règles et de fonctions de base que tout jeton Ethereum doit respecter pour être considéré comme un jeton ERC20 standard. Ces règles incluent la façon dont les transferts de jetons doivent être effectués, comment les soldes doivent être tenus à jour et comment les utilisateurs peuvent accorder des autorisations à des tiers pour dépenser leurs jetons.
+
+L'avantage de la norme ERC20 est qu'elle permet une interopérabilité facile entre les différents jetons ERC20, les portefeuilles et les échanges, simplifiant ainsi le développement d'applications basées sur les jetons Ethereum. En effet, en respectant cette norme, les développeurs peuvent s'assurer que leur jeton sera compatible avec un large éventail de portefeuilles et de plateformes d'échange. Cela facilite également la création de contrats intelligents qui interagissent avec des jetons ERC20.
+
+En bref, la norme ERC20 est une norme technique commune qui définit la manière dont les jetons Ethereum doivent fonctionner, ce qui simplifie leur utilisation et leur échange sur la blockchain Ethereum.
+
+## Installer Truffle et Ganache
+``` npm
+npm install truffle -g
+
+Pour ganache, c'ets un éxécutable
+```
