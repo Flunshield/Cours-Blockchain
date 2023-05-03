@@ -14,7 +14,41 @@ function App() {
   const [birthCity, setBirthCity] = useState("");
   const [, setTransactionHash] = useState(null);
   const [acteIndex, setActeIndex] = useState(0);
-  const [acteData, setActeData] = useState(null);
+  const [naissance, setNaissance] = useState(null);
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      console.log(accounts[0])
+      const result = await contract.methods
+        .enregistrerNaissance(
+          firstName,
+          lastName,
+          fatherFirstName,
+          fatherLastName,
+          motherFirstName,
+          motherLastName,
+          birthCity
+        )
+        .send({ from: accounts[0] });
+      setTransactionHash(result.transactionHash);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Obtenir une naissance enregistrée par l'utilisateur connecté
+  async function obtenirNaissance() {
+    try {
+      const result = await contract.methods.obtenirNaissance().call();
+      setNaissance(result);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  console.log(naissance)
   useEffect(() => {
     async function init() {
       if (window.ethereum) {
@@ -38,33 +72,6 @@ function App() {
     }
     init();
   }, []);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      console.log(accounts[0])
-      const result = await contract.methods
-        .ajouterActe(
-          firstName,
-          lastName,
-          fatherFirstName,
-          fatherLastName,
-          motherFirstName,
-          motherLastName,
-          birthCity
-        )
-        .send({ from: accounts[0] });
-      setTransactionHash(result.transactionHash);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-    // Récupération d'un acte de naissance à partir de son index
-    const handleGetActe = async () => {
-      const acte = await contract.methods.obtenirActe(acteIndex);
-      setActeData(acte);
-    };
 
   return (
     <div>
@@ -132,20 +139,8 @@ function App() {
               Index de l'acte :
               <input type="number" value={acteIndex} onChange={(e) => setActeIndex(e.target.value)} />
             </label>
-            <button onClick={handleGetActe}>Obtenir l'acte</button>
-            {acteData && (
-              <div>
-                <h2>Acte de naissance</h2>
-                <p>Prénom : {acteData[0]}</p>
-                <p>Nom : {acteData[1]}</p>
-                <p>Date de création : {acteData[2]}</p>
-                <p>Prénom du père : {acteData[3]}</p>
-                <p>Nom du père : {acteData[4]}</p>
-                <p>Prénom de la mère : {acteData[5]}</p>
-                <p>Nom de la mère : {acteData[6]}</p>
-                <p>Ville de naissance : {acteData[7]}</p>
-              </div>
-            )}
+            <button onClick={obtenirNaissance}>Obtenir l'acte</button>
+            
           </div></>
      ) }
     </div>
