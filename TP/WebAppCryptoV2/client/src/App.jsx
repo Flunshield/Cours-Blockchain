@@ -20,7 +20,6 @@ function App() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(accounts[0])
       const result = await contract.methods
         .enregistrerNaissance(
           firstName,
@@ -32,6 +31,7 @@ function App() {
           birthCity
         )
         .send({ from: accounts[0] });
+        console.log("accounts : ", accounts)
       setTransactionHash(result.transactionHash);
     } catch (error) {
       console.error(error);
@@ -41,14 +41,15 @@ function App() {
   // Obtenir une naissance enregistrée par l'utilisateur connecté
   async function obtenirNaissance() {
     try {
-      const result = await contract.methods.obtenirNaissance().call();
+      console.log("contract : ", contract)
+      const result = await contract.methods.obtenirNaissance(acteIndex).call({ from: accounts[0] });
       setNaissance(result);
     } catch (err) {
       console.error(err);
     }
   }
 
-  console.log(naissance)
+  console.log("naissance : ", naissance)
   useEffect(() => {
     async function init() {
       if (window.ethereum) {
