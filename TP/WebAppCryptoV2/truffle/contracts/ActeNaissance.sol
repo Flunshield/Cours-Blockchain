@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 pragma solidity ^0.8.17;
 
 contract ActeNaissance {
@@ -21,8 +23,13 @@ contract ActeNaissance {
     
     function obtenirActe(uint256 _index) public view returns (string memory, string memory, uint256, string memory, string memory, string memory, string memory, string memory) {
         Acte[] memory actesPersonne = actes[msg.sender];
-        require(_index < actesPersonne.length, "Cet acte n'existe pas.");
+        require(_index < actesPersonne.length, "Cet acte nexiste pas.");
         Acte memory acte = actesPersonne[_index];
         return (acte.prenom, acte.nom, acte.dateCreation, acte.prenomPere, acte.nomPere, acte.prenomMere, acte.nomMere, acte.villeNaissance);
     }
+
+    function afficherActes() public view returns (Acte[] memory) {
+    return actes[msg.sender];
+}
+
 }
