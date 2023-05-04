@@ -13,10 +13,8 @@ export default function ActeDeNaissance() {
     const [NomMere, setNomMere] = useState("");
     const [DateAnniversaire, setDateAnniversaire] = useState("");
     const [VilleNaissance, setVilleNaissance] = useState("");
-    const [transactionHash, setTransactionHash] = useState(null);
-    const [acteIndex, setActeIndex] = useState(0);
+    const [acteIndex, setActeIndex] = useState("");
     const [naissance, setNaissance] = useState(null);
-
     // Enregistrement de l'acte de naissance par l'utilisateur connecté
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -33,7 +31,7 @@ export default function ActeDeNaissance() {
                     VilleNaissance,
                 )
                 .send({ from: accounts[0] });
-            setTransactionHash(result.transactionHash);
+                console.log(result)
         } catch (error) {
             console.error(error);
         }
@@ -78,77 +76,59 @@ export default function ActeDeNaissance() {
         <div>
             {contract && accounts && (
                 <>
-                <h2>Réaliser un acte de Naissance</h2>
-                <form onSubmit={handleSubmit}>
+                    <h2>Réaliser un acte de Naissance</h2>
+                    <form onSubmit={handleSubmit}>
+                            <label htmlFor="Prenom">Prénom :</label>
+                            <input
+                                type="text"
+                                id="Prenom"
+                                value={Prenom}
+                                onChange={(e) => setPrenom(e.target.value)} />
+                            <label htmlFor="Nom">Nom :</label>
+                            <input
+                                type="text"
+                                id="Nom"
+                                value={Nom}
+                                onChange={(e) => setNom(e.target.value)} />
+                            <label htmlFor="PrenomPere">Prénom du père :</label>
+                            <input
+                                type="text"
+                                id="PrenomPere"
+                                value={PrenomPere}
+                                onChange={(e) => setPrenomPere(e.target.value)} />
+                            <label htmlFor="NomPere">Nom du père :</label>
+                            <input
+                                type="text"
+                                id="NomPere"
+                                value={NomPere}
+                                onChange={(e) => setNomPere(e.target.value)} />
+                            <label htmlFor="PrenomMere">Prénom de la mère :</label>
+                            <input
+                                type="text"
+                                id="PrenomMere"
+                                value={PrenomMere}
+                                onChange={(event) => setPrenomMere(event.target.value)} />
+                            <label htmlFor="NomMere">Nom de la mère :</label>
+                            <input
+                                type="text"
+                                id="NomMere"
+                                value={NomMere}
+                                onChange={(event) => setNomMere(event.target.value)} />
+                            <label htmlFor="DateAnniversaire">Date de naissance :</label>
+                            <input
+                                type="date"
+                                id="DateAnniversaire"
+                                value={DateAnniversaire}
+                                onChange={(event) => setDateAnniversaire(event.target.value)} />
+                            <label htmlFor="VilleNaissance">Ville de naissance :</label>
+                            <input
+                                type="text"
+                                id="VilleNaissance"
+                                value={VilleNaissance}
+                                onChange={(event) => setVilleNaissance(event.target.value)} />
+                        <button onClick={handleSubmit}>Générer l'acte de naissance</button>
+                    </form>
                     <div>
-                        <label htmlFor="Prenom">Prénom :</label>
-                        <input
-                            type="text"
-                            id="Prenom"
-                            value={Prenom}
-                            onChange={(e) => setPrenom(e.target.value)} />
-                    </div>
-                    <div>
-                        <label htmlFor="Nom">Nom :</label>
-                        <input
-                            type="text"
-                            id="Nom"
-                            value={Nom}
-                            onChange={(e) => setNom(e.target.value)} />
-                    </div>
-                    <div>
-                        <label htmlFor="PrenomPere">Prénom du père :</label>
-                        <input
-                            type="text"
-                            id="PrenomPere"
-                            value={PrenomPere}
-                            onChange={(e) => setPrenomPere(e.target.value)} />
-                    </div>
-                    <div>
-                        <label htmlFor="NomPere">Nom du père :</label>
-                        <input
-                            type="text"
-                            id="NomPere"
-                            value={NomPere}
-                            onChange={(e) => setNomPere(e.target.value)} />
-                    </div>
-                    <div>
-                        <label htmlFor="PrenomMere">Prénom de la mère :</label>
-                        <input
-                            type="text"
-                            id="PrenomMere"
-                            value={PrenomMere}
-                            onChange={(event) => setPrenomMere(event.target.value)} />
-                    </div>
-                    <div>
-                        <label htmlFor="NomMere">Nom de la mère :</label>
-                        <input
-                            type="text"
-                            id="NomMere"
-                            value={NomMere}
-                            onChange={(event) => setNomMere(event.target.value)} />
-                    </div>
-                    <div>
-                        <label htmlFor="DateAnniversaire">Date de naissance :</label>
-                        <input
-                            type="date"
-                            id="DateAnniversaire"
-                            value={DateAnniversaire}
-                            onChange={(event) => setDateAnniversaire(event.target.value)} />
-                    </div>
-                    <div>
-                        <label htmlFor="VilleNaissance">Ville de naissance :</label>
-                        <input
-                            type="text"
-                            id="VilleNaissance"
-                            value={VilleNaissance}
-                            onChange={(event) => setVilleNaissance(event.target.value)} />
-                    </div>
-                    <button onClick={handleSubmit}>Générer l'acte de naissance</button>
-                    <div>
-                        <p>Numéro de la transaction : {transactionHash}</p>
-                    </div>
-                </form><div>
                         <h2>Obtenir un acte de naissance</h2>
                         <label>
                             Index de l'acte :
@@ -166,9 +146,11 @@ export default function ActeDeNaissance() {
                                 <p>Nom de la mère : {naissance[5]}</p>
                                 <p>Date de naissance : {naissance[6]}</p>
                                 <p>Ville de naissance : {naissance[7]}</p>
+                                <p>Numéro du contrat : {naissance[8]}</p>
                             </div>
                         )}
-                    </div></>
+                    </div>
+                </>
             )}
         </div>
     )

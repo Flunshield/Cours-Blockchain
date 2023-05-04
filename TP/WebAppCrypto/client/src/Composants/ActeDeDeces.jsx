@@ -9,9 +9,10 @@ export default function ActeDeNaissance() {
     const [Nom, setNom] = useState("");
     const [DateDeces, setDateDeces] = useState("");
     const [Circonstance, setCirconstance] = useState("");
-    const [transactionHash, setTransactionHash] = useState(null);
+    const [, setTransactionHash] = useState(null);
     const [acteIndex, setActeIndex] = useState(0);
     const [deces, setDeces] = useState(null);
+    const [transacthash, setTransacthash] = useState("");
 
     // Enregistrement de l'acte de naissance par l'utilisateur connecté
     const handleSubmit = async (event) => {
@@ -22,12 +23,14 @@ export default function ActeDeNaissance() {
                     Prenom,
                     Nom,
                     DateDeces,
-                    Circonstance
+                    Circonstance,
+                    transacthash
                 )
                 .send({ from: accounts[0] });
             setTransactionHash(result.transactionHash);
         } catch (error) {
             console.error(error);
+            alert("Il faut un acte de naissance valide pour enregistrer un acte de décès");
         }
     };
 
@@ -71,7 +74,6 @@ export default function ActeDeNaissance() {
             {contract && accounts && (
                 <>
                     <form onSubmit={handleSubmit}>
-                        <div>
                             <h2>Enregistrer un acte de decès</h2>
                             <label htmlFor="Prenom">Prénom :</label>
                             <input
@@ -79,35 +81,31 @@ export default function ActeDeNaissance() {
                                 id="Prenom"
                                 value={Prenom}
                                 onChange={(e) => setPrenom(e.target.value)} />
-                        </div>
-                        <div>
                             <label htmlFor="Nom">Nom :</label>
                             <input
                                 type="text"
                                 id="Nom"
                                 value={Nom}
                                 onChange={(e) => setNom(e.target.value)} />
-                        </div>
-                        <div>
                             <label htmlFor="DateDeces">Date de naissance :</label>
                             <input
                                 type="date"
                                 id="DateDeces"
                                 value={DateDeces}
                                 onChange={(event) => setDateDeces(event.target.value)} />
-                        </div>
-                        <div>
                             <label htmlFor="Circonstance">Ville de naissance :</label>
                             <input
                                 type="text"
                                 id="Circonstance"
                                 value={Circonstance}
                                 onChange={(event) => setCirconstance(event.target.value)} />
-                        </div>
-                        <div className="acte-deces-transaction">
+                                <label htmlFor="transacthash">transacthash :</label>
+                                <input
+                                    type="text"
+                                    id="transacthash"
+                                    value={transacthash}
+                                    onChange={(event) => setTransacthash(event.target.value)} />
                             <button onClick={handleSubmit}>Générer l'acte de naissance</button>
-                            <p>Numéro de la transaction : {transactionHash}</p>
-                        </div>
                     </form>
                     <div>
                         <h2>Obtenir un acte de decès</h2>

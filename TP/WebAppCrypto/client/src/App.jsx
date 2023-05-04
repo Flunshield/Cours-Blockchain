@@ -5,10 +5,10 @@ import './css/general.css'
 
 function App() {
   return (
-    <div className="acte-container">
+    <>
       <ActeDeNaissance />
       <ActeDeDeces />
-    </div>
+    </>
   )
 }
 
