@@ -1,7 +1,7 @@
 
 Pour **Recevoir**, il suffit de partager sa clef public.
 
-Pour **envoyer**,  il faut renseigner la clef public de la eprsonne voulu
+Pour **envoyer**,  il faut renseigner la clef public de la personne voulu
 
 # Deployer un contrat
 
@@ -71,7 +71,7 @@ Ensuite, nous devons paramétré remix :
 ![[Pasted image 20230502154934.png]]
 ![[Pasted image 20230502154950.png]]
 
-Enfin, nous devons associé le contrat à notre wallet en important notre adresse du contrat.
+Puis, nous devons associé le contrat à notre wallet en important notre adresse du contrat.
 ![[Pasted image 20230502155513.png]]
 
 ## ERC20
@@ -113,7 +113,7 @@ Pour réceptionner les données souhaité, il faut bien mentionné l'adresse d'e
     }
 ```
 
-L'IDE peut provoquer des erreurs qui n'en sont pas, par exemple, lorsque j'essaaie d'appeler la fonction d'un autre contre, VSCode m'indique une erreur alors que sous l'IDE REMIX, aucune erreur n'est présente et le code fonctionne ! `acteNaissance.transactionExists(transactionHash)`
+L'IDE peut provoquer des erreurs qui n'en sont pas, par exemple, lorsque j'essaie d'appeler la fonction d'un autre contrat, VSCode m'indique une erreur alors que sous l'IDE REMIX, aucune erreur n'est présente et le code fonctionne ! `acteNaissance.transactionExists(transactionHash)`
 ```js
     function enregistrerDeces(string memory prenom, string memory nom, string memory dateDeces, string memory circonstanceDeces, bytes32 transactionHash ) public {
         //bool test = bool(acteNaissance.transactionExists(transactionHas));
@@ -127,18 +127,46 @@ L'IDE peut provoquer des erreurs qui n'en sont pas, par exemple, lorsque j'essaa
     }
 ```
 
-
-Sous Remix, lorsque j'apelle cette fonction avec un bon **transactionHash**, je crée bien mon acte de décès :
+Sous Remix, lorsque j'appelle cette fonction avec un bon **transactionHash**, je crée bien mon acte de décès :
 ```js
 [ { "from": "0xf8e81D47203A594245E36C48e151709F0C19fBe8", "topic": "0xcf34ef537ac33ee1ac626ca1587a0a7e8e51561e5514f8cb36afa1c5102b3bab", "event": "Log", "args": { "0": "ff", "message": "ff" } }, { "from": "0xf8e81D47203A594245E36C48e151709F0C19fBe8", "topic": "0x4edf535cafe2b41133942e2cc6a9e0ba67308480c9cd5d3e0aa7b7278cbd3d21", "event": "DecesEnregistree", "args": { "0": "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4", "1": "jhgjhg", "2": "kjkj,bkjb", "3": "kjbkjb", "4": "kjbkbjk", "utilisateur": "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4", "prenom": "jhgjhg", "nom": "kjkj,bkjb", "dateDeces": "kjbkjb", "circonstanceDeces": "kjbkbjk" } } ]
 ```
 
-Cependant, lorsque j'insère un mauvais **transactionHash**, Remix m'indique une erreur car je rentre dans le catch de la fonction :
+Cependant, lorsque j'insère un mauvais **transactionHash**, Remix m'indique une erreur, car je rentre dans le catch de la fonction :
 ```js
 transact to ActeDeces.enregistrerDeces errored: Error encoding arguments: Error: invalid arrayify value (argument="value", value="0xec05df040g38c0c6ebfcddc1be686313b49822bee326ca68078f08198b1767d2", code=INVALID_ARGUMENT, version=bytes/5.5.0)
 ```
 
+
+Au final, sur VSCode, ça fonctionne malgré l'erreur remontée.
+
 ### Contrat créé
+
+#### Counter.sol
+Ce contrat est un de mes premiers créé pour se faire la main avec solidity. Il incrémente et décrémente un compteur en générant des transactions.
+```js
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+
+contract Counter {
+    uint256 private count;
+    constructor() {
+        count = 0;
+    }
+    
+    function increment() public {
+        count += 1;
+    }
+
+    function decrement() public {
+        count -= 1;
+    }
+
+    function getValue() public view returns (uint256) {
+        return count;
+    }
+}
+```
 
 #### SUDToken.sol
 Ce contrat génère des tokens SUDIST.
@@ -161,7 +189,7 @@ contract SUDToken is ERC20 {
 
 #### ActeNaissance.sol
 Ce contrat possède 3 méthodes :
-- `enregistrerNaissance` qui va permettre de générer un contrat de naissance avec les données  et lui affecté un **transactionhash** envoyé depuis réact
+- `enregistrerNaissance` qui va permettre de générer un contrat de naissance avec les données  et lui affecté un **transactionhash** envoyé depuis react.
 - ``obtenirNaissance`` qui va permettre d'afficher un contrat en fonction de son index.
 - `transactionExists` qui va permettre de vérifier si le **transactionhash** fournit depuis react existe bien dans le contrat.
 ```js
@@ -215,6 +243,13 @@ contract ActeNaissance {
 #### ActeDeces.sol
 Ce contrat est similaire au contrat `ActeNaissance.sol` sauf que celui-ci va réutiliser une des méthodes de `ActeNaissance.sol` pour enregistrer un acte de décès. En effet, afin qu'un acte de décès puissent être réaliser, il faut qu'un acte de naissance est été réaliser. Pour cela, dans la fonction `enregistrerDeces` nous allons faire appel à la méthode `transactionExists` de `acteNaissance.sol` afin de vérifier que le **transactionHash** fournit depuis le front est bien un **transactionHash** délivré lors de l'enregistrement de l'acte de naissance.
 
+**Information importante :**
+il est assez coûteux de calculer le nombre de caractères dans la chaîne (l’encodage de certains caractères prennant plus d’un octet). Pour cette raison, `string s ; s.length` n’est pas encore supporté ni même l’accès par index `s[2]`. 
+
+Par conséquent, j'ai dû calculer le nombre de caractère sur la chaîne depuis REACT.
+![[Pasted image 20230504201906.png]]
+Cela me permet de vérifier que le hash comporte bien 66 caractères. En effet, sur le contrat, je ne peux pas faire de teste sur la longeur de la chaîne mais uniquement sur la présence de la chaîne dans un tableau. Si la chaine comporte une suite de caractère inférieur à 66 mais étant présent dans le tableau, alors la fonction `acteNaissance.transactionExists` retournera true alors qu'il manque une partie du hash.
+
 ```js
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
@@ -258,32 +293,6 @@ contract ActeDeces {
         require(acteIndex < actesPersonne.length, "Cet acte nexiste pas.");
         Deces memory acteDeces = actesPersonne[acteIndex];
         return (acteDeces.prenom, acteDeces.nom, acteDeces.dateDeces, acteDeces.circonstanceDeces);
-    }
-}
-```
-
-#### Counter.sol
-Ce contrat ets un des premier créé pour se faire la main avec solidity. Il incrémente et décrémente un compteur en générant des transactions.
-```js
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
-
-contract Counter {
-    uint256 private count;
-    constructor() {
-        count = 0;
-    }
-    
-    function increment() public {
-        count += 1;
-    }
-
-    function decrement() public {
-        count -= 1;
-    }
-
-    function getValue() public view returns (uint256) {
-        return count;
     }
 }
 ```

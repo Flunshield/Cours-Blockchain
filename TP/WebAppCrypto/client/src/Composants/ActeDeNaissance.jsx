@@ -31,7 +31,7 @@ export default function ActeDeNaissance() {
                     VilleNaissance,
                 )
                 .send({ from: accounts[0] });
-                console.log(result)
+            console.log(result)
         } catch (error) {
             console.error(error);
         }
@@ -73,70 +73,41 @@ export default function ActeDeNaissance() {
     }, []);
 
     return (
-        <div>
+        <>
             {contract && accounts && (
-                <>
-                    <h2>Réaliser un acte de Naissance</h2>
-                    <form onSubmit={handleSubmit}>
+                <main>
+                    <section>
+                        <h2>Réaliser un acte de Naissance</h2>
+                        <form onSubmit={handleSubmit}>
                             <label htmlFor="Prenom">Prénom :</label>
-                            <input
-                                type="text"
-                                id="Prenom"
-                                value={Prenom}
-                                onChange={(e) => setPrenom(e.target.value)} />
+                            <input type="text" id="Prenom" value={Prenom} onChange={(e) => setPrenom(e.target.value)} />
                             <label htmlFor="Nom">Nom :</label>
-                            <input
-                                type="text"
-                                id="Nom"
-                                value={Nom}
-                                onChange={(e) => setNom(e.target.value)} />
+                            <input type="text" id="Nom" value={Nom} onChange={(e) => setNom(e.target.value)} />
                             <label htmlFor="PrenomPere">Prénom du père :</label>
-                            <input
-                                type="text"
-                                id="PrenomPere"
-                                value={PrenomPere}
-                                onChange={(e) => setPrenomPere(e.target.value)} />
+                            <input type="text" id="PrenomPere" value={PrenomPere} onChange={(e) => setPrenomPere(e.target.value)} />
                             <label htmlFor="NomPere">Nom du père :</label>
-                            <input
-                                type="text"
-                                id="NomPere"
-                                value={NomPere}
-                                onChange={(e) => setNomPere(e.target.value)} />
+                            <input type="text" id="NomPere" value={NomPere} onChange={(e) => setNomPere(e.target.value)} />
                             <label htmlFor="PrenomMere">Prénom de la mère :</label>
-                            <input
-                                type="text"
-                                id="PrenomMere"
-                                value={PrenomMere}
-                                onChange={(event) => setPrenomMere(event.target.value)} />
+                            <input type="text" id="PrenomMere" value={PrenomMere} onChange={(e) => setPrenomMere(e.target.value)} />
                             <label htmlFor="NomMere">Nom de la mère :</label>
-                            <input
-                                type="text"
-                                id="NomMere"
-                                value={NomMere}
-                                onChange={(event) => setNomMere(event.target.value)} />
+                            <input type="text" id="NomMere" value={NomMere} onChange={(e) => setNomMere(e.target.value)} />
                             <label htmlFor="DateAnniversaire">Date de naissance :</label>
-                            <input
-                                type="date"
-                                id="DateAnniversaire"
-                                value={DateAnniversaire}
-                                onChange={(event) => setDateAnniversaire(event.target.value)} />
+                            <input type="date" id="DateAnniversaire" value={DateAnniversaire} onChange={(e) => setDateAnniversaire(e.target.value)} />
                             <label htmlFor="VilleNaissance">Ville de naissance :</label>
-                            <input
-                                type="text"
-                                id="VilleNaissance"
-                                value={VilleNaissance}
-                                onChange={(event) => setVilleNaissance(event.target.value)} />
-                        <button onClick={handleSubmit}>Générer l'acte de naissance</button>
-                    </form>
-                    <div>
+                            <input type="text" id="VilleNaissance" value={VilleNaissance} onChange={(e) => setVilleNaissance(e.target.value)} />
+                            <button type="submit">Générer l'acte de naissance</button>
+                        </form>
+                    </section>
+                    <section>
                         <h2>Obtenir un acte de naissance</h2>
-                        <label>
-                            Index de l'acte :
-                            <input type="number" value={acteIndex} onChange={(e) => setActeIndex(e.target.value)} />
-                        </label>
-                        <button onClick={obtenirNaissance}>Obtenir l'acte</button>
+                        <div>
+                            <label htmlFor="acteIndex">Index de l'acte :</label>
+                            <input type="number" id="acteIndex" value={acteIndex} onChange={(e) => setActeIndex(e.target.value)} />
+                            
+                            <button onClick={obtenirNaissance}>Obtenir l'acte</button>
+                        </div>
                         {naissance && (
-                            <div>
+                            <article>
                                 <h2>Acte de naissance</h2>
                                 <p>Prénom : {naissance[0]}</p>
                                 <p>Nom : {naissance[1]}</p>
@@ -147,12 +118,12 @@ export default function ActeDeNaissance() {
                                 <p>Date de naissance : {naissance[6]}</p>
                                 <p>Ville de naissance : {naissance[7]}</p>
                                 <p>Numéro du contrat : {naissance[8]}</p>
-                            </div>
+                            </article>
                         )}
-                    </div>
-                </>
+                    </section>
+                </main>
             )}
-        </div>
+        </>
     )
 }
 

@@ -4,15 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "8e0b70edc0940a94",
+        "id": "1e72336ef8a8bf93",
         "type": "tabs",
         "children": [
           {
-            "id": "6521f90c13f392f9",
+            "id": "246bce3afa6beb35",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "TP réalisé.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -89,6 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "TP réalisé.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,6 +110,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "TP réalisé.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +132,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "TP réalisé.md"
+              }
             }
           }
         ]
@@ -146,18 +154,24 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "6521f90c13f392f9",
+  "active": "246bce3afa6beb35",
   "lastOpenFiles": [
-    "TP réalisé.md",
-    "pratiques.md",
-    "Prise de note.md",
+    "Untitled.md",
     "lien.md",
-    "Pasted image 20230502155513.png",
-    "Pasted image 20230502154950.png",
-    "Pasted image 20230502154934.png",
-    "Pasted image 20230502135851.png",
-    "Pasted image 20230502100939.png",
-    "Pasted image 20230502100859.png",
-    "Pasted image 20230502092735.png"
+    "pratiques.md",
+    "assets/private_node.png",
+    "assets/account_struct.png",
+    "assets/networks.png",
+    "assets/transac_des.png",
+    "assets/byte_evm.png",
+    "assets/node.png",
+    "assets/gas.png",
+    "assets/eth_wei.png",
+    "assets/opcodes.png",
+    "assets/LLle.png",
+    "assets/transac_des.png.md",
+    "assets",
+    "TP réalisé.md",
+    "Prise de note.md"
   ]
 }
