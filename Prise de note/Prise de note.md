@@ -1,6 +1,9 @@
 # Introduction
 
-1 way = 10^17 ETH
+1 wei = 10^18 ETH
+
+[lien convertisseur](https://eth-converter.com/)
+
 
 La blockchain est une technologie de registre distribué et décentralisé, utilisée pour stocker et valider des transactions de manière transparente, sécurisée et immuable. Chaque transaction est enregistrée dans un bloc qui est connecté de manière chronologique à un réseau de blocs, formant ainsi une chaîne de blocs ou "blockchain". Les blocs sont sécurisés par des algorithmes de cryptographie et le consensus est atteint par un processus de validation par les pairs (peer-to-peer).
 
@@ -70,3 +73,9 @@ Wallet Froid
 - Clef usb
 
 
+## Les variables
+**Storage** fait référence à la mémoire persistante qui est utilisée pour stocker des données à long terme sur la blockchain Ethereum. Cette mémoire est accessible de manière globale à l'ensemble du contrat et peut être utilisée pour stocker des variables d'état qui doivent être conservées entre les appels de fonction.
+
+**Memory** est une mémoire volatile qui est utilisée pour stocker des données temporaires pendant l'exécution d'une fonction. Les données stockées dans la mémoire ne sont pas persistantes et sont automatiquement effacées à la fin de l'exécution de la fonction.
+
+**Calldata** est utilisé pour stocker les arguments d'une fonction lorsqu'elle est appelée depuis l'extérieur du contrat. Cette mémoire est similaire à la mémoire, mais elle est uniquement accessible en lecture seule et ne peut pas être modifiée par la fonction.
