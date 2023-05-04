@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Web3 from "web3";
 import BirthCertificateContract from "../contracts/ActeNaissance.json";
+import '../css/ActeDeNaissance.css'
 
 export default function ActeDeNaissance() {
     const [contract, setContract] = useState(null);
